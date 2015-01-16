@@ -8,7 +8,7 @@
   (setq count (or count 1))
   (forward-char)
   (re-search-forward "\\s(\\|\\s)" nil 'end-of-buffer count)
-  (while (in-string-p)
+  (while (and (in-string-p) (< (point) (point-max)))
     (re-search-forward "\\s(\\|\\s)" nil 'end-of-buffer))
   (backward-char))
 
@@ -19,7 +19,7 @@
   (interactive "<c>")
   (setq count (or count 1))
   (re-search-backward "\\s(\\|\\s)" nil 'beginning-of-buffer count)
-  (while (in-string-p)
+  (while (and (in-string-p) (> (point) (point-min)))
     (re-search-backward "\\s(\\|\\s)")))
 
 (provide 'evil-walk-on-the-edge)
